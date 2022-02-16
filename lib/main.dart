@@ -1,4 +1,5 @@
 import 'package:dashboard/login_screen.dart';
+import 'package:dashboard/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
         
       
-      home: const LoginPage(),
+      home: const SignupPage(),
     );
   }
 }
