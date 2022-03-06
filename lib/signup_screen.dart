@@ -1,4 +1,7 @@
+import 'package:dashboard/login_screen.dart';
+import 'package:dashboard/navigation/routes.dart';
 import 'package:flutter/material.dart';
+
 
 class SignupPage extends StatefulWidget {
   const SignupPage({ Key? key }) : super(key: key);
@@ -8,7 +11,13 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+
  final purpcolor = Color(0xff5138EE);
+ final emailController = new TextEditingController();
+ final passwordController =  TextEditingController();
+ final formkey = GlobalKey<FormState>();
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +68,7 @@ class _SignupPageState extends State<SignupPage> {
               
                   Container(
                     height: 60,
-                    child: MaterialButton(onPressed: (){},
+                    child: InkWell(onTap: (){},
                  
                      child: Container(
                      height:60,
@@ -106,32 +115,36 @@ class _SignupPageState extends State<SignupPage> {
                       SizedBox( height: 15,),
                //==========================================================
 
-               Row(
-                 children: [
-                   Padding(
-                     padding:  const EdgeInsets.only(bottom: 5, left: 15),
-                     child: Text('Name*', style: TextStyle(fontWeight: FontWeight.bold),),
-                   )
-                 ],
+                Form(
+                  key: formkey,
+                 child: Row(
+                   children: [
+                     Padding(
+                       padding:  const EdgeInsets.only(bottom: 5, left: 15),
+                       child: Text('Name*', style: TextStyle(fontWeight: FontWeight.bold),),
+                     )
+                   ],
+                 ),
                ),
               
               Container(
-                child: Column(
-                  children: [
-                    TextField(
-                     textAlign: TextAlign.center,
-                     decoration: InputDecoration(
-                       hintText: 'Enter your Name',
-                       hintStyle: TextStyle(color: Colors.grey,
-                                    fontSize: 14,
-                                     fontWeight: FontWeight.bold),
-                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))
-                       
-                     ),
-                    ),
-                  ],
+                  child: Column(
+                    children: [
+                      TextField(
+                       textAlign: TextAlign.center,
+                       decoration: InputDecoration(
+                         hintText: 'Enter your Name',
+                         hintStyle: TextStyle(color: Colors.grey,
+                                      fontSize: 14,
+                                       fontWeight: FontWeight.bold),
+                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))
+                         
+                       ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+             
               
 
                //============Sized Box====================================
@@ -150,59 +163,73 @@ class _SignupPageState extends State<SignupPage> {
                    ],
                  ),     
                Container(
-                 child: Column(
-                   children: [
-                     
-
-                     TextField(
-                       textAlign: TextAlign.center,
-                       decoration: InputDecoration(
-                         hintText: 'mail@website.com',
-                         hintStyle: TextStyle(color: Colors.grey,
-                                    fontSize: 14,
-                                     fontWeight: FontWeight.bold),
-                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))
-
-                       ),
-                     ),
-
-                      //============Sized Box====================================
-                      SizedBox( height: 15,),
-                     //=============Password===================================
-
-                       Row(
-                   children: [
-                     Padding(
-                       padding: const EdgeInsets.only(bottom: 5, left: 15),
-                       child: const Text('Password*',textAlign: TextAlign.left,
-                               style: TextStyle(fontWeight: FontWeight.bold),
-                               )
+                   child: Column(
+                     children: [
+                    TextFormField(
+                           controller: emailController,
+                           textAlign: TextAlign.center,
+                           decoration: InputDecoration(
+                             hintText: 'mail@website.com',
+                             hintStyle: TextStyle(color: Colors.grey,
+                                        fontSize: 14,
+                                         fontWeight: FontWeight.bold),
+                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))
                        
-                     ),
-                   ],
-                 ),
-
-                 //=============2nd Text Field===================================
-                     TextField(
+                           ),
+                           onChanged: (val){
+                             print(val);
+                           },
+                           onFieldSubmitted:(val){
+                             print("Submitted : $val");
+                           } ,
+                           validator: (val){
+                             if(val!=null&&val.isNotEmpty){
+                               return null;
+                             }
+                             return "Email must not be empty";
+                           },
+                         ),
                        
-                       textAlign: TextAlign.center,
-                       obscureText: true,
-                       decoration: InputDecoration(
-                         hintText: 'Min. 8 character',
-                         hintStyle: TextStyle(color: Colors.grey,
-                                    fontSize: 14,
-                                     fontWeight: FontWeight.bold),
-                                     
-                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-                        
-
+                 
+                        //============Sized Box====================================
+                        SizedBox( height: 15,),
+                       //=============Password===================================
+                 
+                         Row(
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.only(bottom: 5, left: 15),
+                         child: const Text('Password*',textAlign: TextAlign.left,
+                                 style: TextStyle(fontWeight: FontWeight.bold),
+                                 )
+                         
                        ),
-                     )
-                     
-
-                   ],
+                     ],
+                      ),
+                 
+                      //=============2nd Text Field===================================
+                       TextField(
+                           
+                           textAlign: TextAlign.center,
+                           obscureText: true,
+                           decoration: InputDecoration(
+                             hintText: 'Min. 8 character',
+                             hintStyle: TextStyle(color: Colors.grey,
+                                        fontSize: 14,
+                                         fontWeight: FontWeight.bold),
+                                         
+                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                            
+                       
+                           ),
+                         ),
+                      
+                       
+                 
+                     ],
+                   ),
                  ),
-               ),
+               
 
                 //============Sized Box====================================
                       SizedBox( height: 15,),
@@ -237,7 +264,16 @@ class _SignupPageState extends State<SignupPage> {
 
               
 
-               MaterialButton(onPressed: (){},
+               InkWell(
+                 onTap: (){
+
+                    if(formkey.currentState != null){
+                      formkey.currentState!.save();
+                      formkey.currentState!.validate();
+                    }
+                    
+                     Navigator.of(context).push(MaterialPageRoute(builder: (context)=> LoginPage()));
+                    },
                  child: 
                    Container(
                      height:50,
@@ -289,7 +325,9 @@ class _SignupPageState extends State<SignupPage> {
                    ),
                    Column(
                      children: [
-                       MaterialButton(onPressed: (){},
+                       MaterialButton(onPressed: (){
+                         Navigator.pushNamed(context, Routes.loginRoute);
+                       },
                        
                        child: Text('Sign in', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: purpcolor),) ,)
                       

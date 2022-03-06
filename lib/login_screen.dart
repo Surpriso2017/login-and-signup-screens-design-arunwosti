@@ -1,5 +1,7 @@
-import 'dart:ui';
 
+
+import 'package:dashboard/navigation/routes.dart';
+import 'package:dashboard/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,6 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   final purpcolor = Color(0xff5138EE);
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
               
                   Container(
                     height: 60,
-                    child: MaterialButton(onPressed: (){},
+                    child: InkWell(onTap: (){},
                  
                      child: Container(
                      height:60,
@@ -126,56 +129,61 @@ class _LoginPageState extends State<LoginPage> {
                    ],
                  ),     
                Container(
-                 child: Column(
-                   children: [
-                     
-
-                     TextField(
-                       textAlign: TextAlign.center,
-                       decoration: InputDecoration(
-                         hintText: 'mail@website.com',
-                         hintStyle: TextStyle(color: Colors.grey,
-                                    fontSize: 14,
-                                     fontWeight: FontWeight.bold),
-                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))
-
-                       ),
-                     ),
-
-                      //============Sized Box====================================
-                      SizedBox( height: 20,),
-                     //=============Password===================================
-
-                       Row(
-                   children: [
-                     Padding(
-                       padding: const EdgeInsets.only(bottom: 5, left: 15),
-                       child: const Text('Password*',textAlign: TextAlign.left,
-                               style: TextStyle(fontWeight: FontWeight.bold),
-                               )
+                 child: Form(
+                   key: formkey,
+                   child: Column(
+                     children: [
                        
-                     ),
-                   ],
-                 ),
-
-                 //=============2nd Text Field===================================
-                     TextField(
-                       
-                       textAlign: TextAlign.center,
-                       obscureText: true,
-                       decoration: InputDecoration(
-                         hintText: 'Min. 8 character',
-                         hintStyle: TextStyle(color: Colors.grey,
-                                    fontSize: 14,
-                                     fontWeight: FontWeight.bold),
-                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-                        
-
+                 
+                       TextField(
+                         textAlign: TextAlign.center,
+                         decoration: InputDecoration(
+                           hintText: 'mail@website.com',
+                           hintStyle: TextStyle(color: Colors.grey,
+                                      fontSize: 14,
+                                       fontWeight: FontWeight.bold),
+                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))
+                 
+                         ),
                        ),
-                     )
-                     
-
-                   ],
+                 
+                        //============Sized Box====================================
+                        SizedBox( height: 20,),
+                       //=============Password===================================
+                 
+                         Row(
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.only(bottom: 5, left: 15),
+                         child: const Text('Password*',textAlign: TextAlign.left,
+                                 style: TextStyle(fontWeight: FontWeight.bold),
+                                 )
+                         
+                       ),
+                     ],
+                   ),
+                 
+                   //=============2nd Text Field===================================
+                       
+                         TextField(
+                           
+                           textAlign: TextAlign.center,
+                           obscureText: true,
+                           decoration: InputDecoration(
+                             hintText: 'Min. 8 character',
+                             hintStyle: TextStyle(color: Colors.grey,
+                                        fontSize: 14,
+                                         fontWeight: FontWeight.bold),
+                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                            
+                                        
+                           ),
+                         ),
+                       
+                       
+                 
+                     ],
+                   ),
                  ),
                ),
 
@@ -212,7 +220,11 @@ class _LoginPageState extends State<LoginPage> {
 
               
 
-               MaterialButton(onPressed: (){},
+               InkWell(onTap: (){
+
+                 //***********Routing************** */
+                 Navigator.pushNamed(context, Routes.noteRoute);
+               },
                  child: 
                    Container(
                      height:60,
@@ -264,7 +276,12 @@ class _LoginPageState extends State<LoginPage> {
                    ),
                    Column(
                      children: [
-                       MaterialButton(onPressed: (){},
+                       InkWell(onTap: (){
+
+                         // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignupPage()));
+                                            //    OR
+                      Navigator.pushNamed(context,Routes.signupRoute) ;                   
+                       },
                        
                        child: Text('Create an Account?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: purpcolor),) ,)
                       
